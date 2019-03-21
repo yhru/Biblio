@@ -16,75 +16,48 @@
 	<section>
 		<h1>Resultat</h1>
 		<?php
-		include('functions.php');
-		//PDO = PHP Data Object, me permet de me connecter en localhost (127.0.0.1) sur la base de données data (qui se trouve sur phpmyadmin)
-		$bdd = new PDO("mysql:host=127.0.0.1;dbname=data;charset=utf8","root","");
-
+    $detail = 100;
     if(isset($_GET['detail'])){
       $detail = $_GET['detail'];
     }
-    if(isset($_POST['1']) or $detail == 0){
-			//Si le champ est vide et qu'on clique sur le bouton submit => On a tout les livres !
 
-			if(empty($_POST['recherche'])){
-			  //La requête que l'on veut faire
-				$requete = "SELECT CodeLivre,Title FROM livre";
-				//On va chercher (query) dans notre base de données (bdd) des résultats de la requête $requete
-				$retour = $bdd->query($requete);
-				//Affiche le résultat de la requête ($données represente un tableau champ par champ de mes valeurs)
-				//Ici, il y a tous les champs
-				while($donnees = $retour->fetch()){
-					bookdisplay_function_result($donnees);
-          $answer = $donnees['CodeLivre'];
-          echo'<a href="detail.php?livre='.$answer.'">+ de detail</a><br/><br/>';
-				}
-				echo "<br /><br />";
-			}
-
-      else{
+		include('functions.php');
+		//PDO = PHP Data Object, me permet de me connecter en localhost (127.0.0.1) sur la base de données data (qui se trouve sur phpmyadmin)
+		$bdd = new PDO("mysql:host=127.0.0.1;dbname=data;charset=utf8","root","");
+    if(isset($_POST['1']) or $detail == 1){
+      if (isset($_POST['recherche'])){
 				$usersearch = $_POST['recherche'];
         $columns = array('CodeLivre','Title','Author','Editor','PublicationYear','Language','Resum','CodeKey');
-				for ($i=0;$i<=7;$i++){
+				for ($i=0;$i<=0;$i++){
 					$requete = "SELECT * FROM livre WHERE $columns[$i] LIKE '%$usersearch%'";
 				  $retour = $bdd->query($requete);
 				  while($donnees = $retour->fetch()){
 				      bookdisplay_function_result($donnees);
               $answer = $donnees['CodeLivre'];
-              echo'<a href="detail.php?livre='.$answer.'">+ de detail</a><br/><br/>';
+              echo'<a href="detail.php?booksearch='.$answer.'">+ de detail</a><br/><br/>';
 					}
 			  }
 			}
-	  }
+    }
 
-
-/*
-      if(isset($_GET['detail'])){
-        $detail = $_GET['detail'];
-      }
-			if(isset($_POST['2']) and $detail = 0){
-
-				foreach($_POST as $key => $value) {
-
-					if(!(empty($_POST[$key])))
-					{
-						$requete = "SELECT * FROM livre WHERE $key LIKE '%$value%'";
-						$retour = $bdd->query($requete);
-						while($donnees = $retour->fetch()){
-							bookdisplay_function_result($donnees);
-              $answer = $donnees['CodeLivre'];
-              echo'<a href="detail.php?livre='.$answer.'">+ de detail</a><br/><br/>';
-						}
-						echo "<br/>";
-          }
-
-				}
-
+		if(isset($_POST['2'])){
+			foreach($_POST as $key => $value) {
+				if(!(empty($_POST[$key])))
+				{
+					$requete = "SELECT * FROM livre WHERE $key LIKE '%$value%'";
+					$retour = $bdd->query($requete);
+					while($donnees = $retour->fetch()){
+						bookdisplay_function_result($donnees);
+            $answer = $donnees['CodeLivre'];
+            echo'<a href="detail.php?bookfilter='.$answer.'">+ de detail</a><br/><br/>';
+					}
+					echo "<br/>";
+        }
 			}
-*/
-		?>
+		}
+	?>
 	</section>
 	<footer>
   </footer>
-
 </body>
 </html>
