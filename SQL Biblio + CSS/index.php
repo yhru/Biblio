@@ -44,6 +44,10 @@
                             </select><br><br>
                     </form>
                 </div>
+                <br/><br/>
+            <a href = "lib/bdd/addbookmenu.php"> Lien pour ajouter un livre à la Base de données </a><br/>
+            <a href = "lib/web/php/inscription.php"> S'inscrire </a><br/>
+            <a href = "lib/web/php/connexion.php"> Se connecter </a><br/>
                 ______________________________________
                 <div class="slideshow-container">
                   <div class="mySlides fade">
