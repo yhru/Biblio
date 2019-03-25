@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Open a connection via PDO to create a
  * new database and table with structure.
@@ -13,35 +14,50 @@ CREATE DATABASE $dbname;
 use $dbname;
 
 CREATE TABLE $author (
-    CodeAuthor INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    FirstName CHAR(254) NOT NULL,
-    LastName CHAR(254) NOT NULL
+    IdAuthor INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    FirstName CHAR(255) NOT NULL,
+    LastName CHAR(255) NOT NULL
 );
 
-CREATE TABLE $keywords (
-    CodeKeyWords INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE $keyword (
+    IdKeyWord INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     ListeKW TEXT NOT NULL
 );
 
-CREATE TABLE $livre (
-    CodeLivre INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    Title CHAR(254) NOT NULL,
-    CodeAuthor INT(11) NOT NULL,
-    Editor CHAR(254) NOT NULL,
+CREATE TABLE $status (
+    IdGroup INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    TypeGroup VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE $book (
+    IdBook INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    Title VARCHAR(255) NOT NULL,
+    IdAuthor INT(11) NOT NULL,
+    Editor VARCHAR(255) NOT NULL,
     PublicationYear TIMESTAMP NOT NULL,
-    Language CHAR(254) NOT NULL,
+    Langage CHAR(255) NOT NULL,
     Resum TEXT,
-    CodeKeyWords INT(11) NOT NULL
+    IdKeyWord INT(11) NOT NULL
 );
 
 CREATE TABLE $comment (
     IdComment INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    Username VARCHAR(254) NOT NULL,
-    Jour DATE,
-    Heure TIME,
+    Username VARCHAR(255) NOT NULL,
+    Day DATE,
+    Hour TIME,
     Comment TEXT,
-    CodeLivre INT(11) NOT NULL
+    IdBook INT(11) NOT NULL
 );
+
+CREATE TABLE $user (
+  IdUser INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  User VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  Passwd VARCHAR(255) NOT NULL,
+  Mail VARCHAR(100) NOT NULL,
+  RegistrationDate DATETIME,
+  TypeGroup VARCHAR(255) NOT NULL
+);
+
 SQL;
 
 try {
@@ -52,5 +68,3 @@ try {
 } catch(PDOException $error) {
     echo $tableUsers . "<br>" . $error->getMessage();
 }
-
-?>

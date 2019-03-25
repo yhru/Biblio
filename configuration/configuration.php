@@ -10,9 +10,11 @@ $password = "";
 $dbname = "Biblio";
 $dsn = "mysql:host=". $host . ";dbname=" . $dbname . ";charset=utf8";
 $author = "author";
-$keywords = "keywords";
-$livre = "livre";
+$keyword = "keyword";
+$book = "book";
 $comment = "comment";
+$status = "status";
+$user = "user";
 $options = array(
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
 );
