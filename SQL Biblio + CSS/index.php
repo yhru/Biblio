@@ -14,7 +14,9 @@
     <body>
         <header>
             <div class="topnav">
+              <a href="index.php">
                 <img class="logo" src="lib\styles\css\logo.png">
+              </a>
             </div>
         </header>
 
