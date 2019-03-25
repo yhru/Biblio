@@ -4,62 +4,84 @@
     <title>Detail du livre</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../../../lib/styles/css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <div class="container">
     <h1> Description du livre </h1><br/>
     <?php
     if (isset($_GET['booksearch'])){
       $detail = 1;
-      $answer = $_GET['booksearch'];
+      $CodeLivre = $_GET['booksearch'];
     }
     else{
       $detail = 2;
-      $answer = $_GET['bookfilter'];
+      $CodeLivre = $_GET['bookfilter'];
     }
 
     include('functions.php');
 
     try{
-      $bdd = new PDO("mysql:host=127.0.0.1;dbname=data;charset=utf8","root","", array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+      $bdd = new PDO("mysql:host=127.0.0.1;dbname=data;charset=utf8","root","");
     }
     catch(Exception $e){
       die("Erreur : " . $e->getMessage());
     }
 
-    $requete = "SELECT * FROM livre,author,keywords WHERE livre.CodeAuthor = author.CodeAuthor AND livre.CodeKeyWords = keywords.CodeKeyWords AND CodeLivre = '$answer'";
+    $requete = "SELECT * FROM livre,author,keywords WHERE livre.CodeAuthor = author.CodeAuthor AND livre.CodeKeyWords = keywords.CodeKeyWords AND CodeLivre = '$CodeLivre'";
     $retour = $bdd->query($requete);
     while($donnees = $retour->fetch()){
       bookdisplay_function_detail($donnees);
     }
     ?>
-    <br/>
+
     <?php
       //On inclut + éxécute les fichiers message.php et storymessages.php afin d'appliquer les fonctions de ces 2 classes
       require_once 'class/message.php';
-      $messages;
+      $Comments;
       //On déclare une variable $error et on l'initialise comme étant null, cette variable sera utilisé plus tard si on a une erreur de saisie
       $error = null;
       //On déclare une variable $success et on l'initialise comme étant false, elle sera = true si elle passe les conditions de saisies
       $success = false;
       //Si l'utilisateur a mis un pseudo et un message
       if(isset($_POST['Username'], $_POST['Comment'])){
-        //On crée un nouveau message comportant en paramètre le pseudo et le message, ce message est stocké dans $message
-        $message = new Commentary($_POST['Username'], $_POST['Comment']);
-        //Si $message respecte les conditions de saisies
-        if($message->CheckValidBoolean()){
+        //On crée un nouveau message comportant en paramètre le pseudo et le message, ce message est stocké dans $Comment
+        $Comment = new Commentary($_POST['Username'], $_POST['Comment']);
+        //Si $Comment respecte les conditions de saisies
+        if($Comment->CheckValidBoolean()){
           $success = true;
+
+          if(isset($_POST['Comment'])){
+            //Récupération des données dans les variables suivantes
+            $Username = $_POST['Username'];
+            $Date = date('Y-m-d');
+            $Heure = date_default_timezone_set('Europe/Paris'); $Heure = date('H:i:s');
+            $Comment = $_POST['Comment'];
+
+            //Requete SQL afin d'ajouter les données
+            $requete = $bdd->prepare('INSERT INTO comment(Username, Date, Heure, Comment, CodeLivre) VALUES(:Username, :Date, :Heure, :Comment, :CodeLivre)');
+            //Ajout d'un commentaire au livre correspondant dans la base de données (Table : "comment") :
+            $requete->execute(array(
+              ':Username' => $Username,
+              ':Date' => $Date,
+              ':Heure' => $Heure,
+              ':Comment' => $Comment,
+              ':CodeLivre' => $CodeLivre
+            ));
+          }
           //Cette ligne de code permet de vider le champ de recherche (donc on y voit de nouveau le placeholder de chaque champ)
           $_POST = array();
-
         }
         else{
-          //Si $message ne respecte pas les conditions de saisies, on va alors appliqué la fonction GetErrorsCommentary sur $message qui sera stocké dans $error
-          $error = $message->GetErrorsCommentary();
+          //Si $Comment ne respecte pas les conditions de saisies, on va alors appliqué la fonction GetErrorsCommentary sur $Comment qui sera stocké dans $error
+          $error = $Comment->GetErrorsCommentary();
+          $_POST = array();
         }
       }
-     ?>
+    ?>
+
+    <!-- Liste des commentaires du plus ancien au plus récent -->
+    <br/><h1 class ="messages"> Commentaires </h1><br/>
 
     <!-- Si y a une erreur -->
     <?php if(!empty($error)): ?>
@@ -77,13 +99,11 @@
     </div>
     <?php endif ?>
 
-    <!-- Liste des commentaires du plus ancien au plus récent -->
-    <h1 class ="messages"> Commentaires </h1><br/>
-
     <!-- Un formulaire composé du pseudo et du message -->
-    <form action="#" method="post">
+    <form action="" method="post">
       <div class="form-group">
-        <input value="<?= htmlentities($_POST['Username'] ?? '') ?>" name="Username" placeholder="Votre pseudo" type="text" class="form-control <?= isset($error['Username']) ? 'is-invalid' : '' ?>">
+        <!--Si il y a il y a une erreur dans le username, il rajoutera 'is-invalid' à ma classe sinon il ne rajoute rien -->
+        <input name="Username" placeholder="Votre pseudo" type="text" class="form-control <?= isset($error['Username']) ? 'is-invalid' : '' ?>">
         <!-- Si il y a une erreur au niveau du Pseudo (qui est trop court) -->
         <?php if(isset($error['Username'])): ?>
           <!-- Il affichera alors comme quoi que le pseudo est trop court -->
@@ -91,6 +111,7 @@
         <?php endif ?>
       </div>
       <div class="form-group">
+        <!--Si il y a il y a une erreur dans le commentaire, il rajoutera 'is-invalid' à ma classe sinon il ne rajoute rien -->
         <textarea name="Comment" placeholder="Votre avis sur ce livre !" class="form-control <?= isset($error['Comment']) ? 'is-invalid' : '' ?>"><?= htmlentities($_POST['Comment'] ?? '') ?></textarea>
         <!-- Si il y a une erreur au niveau du message (qui est trop court) -->
         <?php if(isset($error['Comment'])): ?>
@@ -103,36 +124,13 @@
     </form>
 
     <?php
-    if(isset($_POST['Comment'])){
-    	//Récupération des données dans les variables suivantes
-    	$Username = $_POST['Username'];
-      $Date = '2018-12-18';
-      $Heure = '18:54:22';
-      $Comment = $_POST['Comment'];
-
-    	//Requete SQL afin d'ajouter les données
-    	$requete = $bdd->prepare('INSERT INTO comment(Username, Date, Heure, Comment, CodeLivre) VALUES(:Username, :Date, :Heure, :Comment, :CodeLivre)');
-
-      //Ajout d'un commentaire au livre correspondant dans la base de données (Table : "comment") :
-    	$requete->execute(array(
-    		'Username' => $Username,
-        'Date' => $Date,
-        'Heure' => $Heure,
-    		'Comment' => $Comment,
-        'CodeLivre' => $answer,
-    	));
-    }
-    ?>
-
-    <?php
-      $requete = "SELECT Username, Date, Heure, Comment FROM livre,comment WHERE livre.CodeLivre = comment.CodeLivre AND livre.CodeLivre = '$answer' ORDER BY Date DESC, Heure DESC";
+      $requete = "SELECT Username, Date, Heure, Comment FROM livre,comment WHERE livre.CodeLivre = comment.CodeLivre AND livre.CodeLivre = '$CodeLivre' ORDER BY Date DESC, Heure DESC";
       $retour = $bdd->query($requete);
-      //$retour = array_reverse($retour);
       while($donnees = $retour->fetch()){
         bookdisplay_function_comment($donnees);
       }
     ?>
 
-  <br/><center><a href= <?php echo "result.php?detail='.$detail.'"?>>Retourner à la page précédente</a></center><br/><br/>
+  <br/><br/><center><a href= <?php echo "result.php?detail='.$detail.'"?>>Retourner à la page précédente</a></center><br/><br/>
 
 </html>
