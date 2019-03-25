@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <label style="font-size:14px; font-family:calibri;">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../../../lib/styles/css/style.css">
   </head>
   <body>
+    <header>
+        <div class="topnav">
+            <img class="logo" src="..\..\..\lib\styles\css\logo.png">
+        </div>
+    </header>
+    <br/><br/><br/><br/><br/><br/><br/><br/>
     <form action="connexion.php" method="post">
       <input type="text" placeholder="Nom d'utilisateur" name="user" value=""/>
       <input type="password" placeholder="Mot de passe" name="mdp" value=""/>
@@ -14,6 +21,8 @@
       <input type="submit" name="connexion" value="Se connecter"/>
     </form>
   </body>
+  <footer>
+  </footer>
 </html>
 <?php
   /* Nous avons configuré l'insertion du nom d'utilisateur sensible à la cable, c'est à dire que l'utilisateur devra mettre correctement
