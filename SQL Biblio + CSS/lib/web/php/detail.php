@@ -1,4 +1,6 @@
-
+<?php
+  require '../../../config/configuration.php';
+ ?>
 <html>
   <head>
     <title>Detail du livre</title>
@@ -22,13 +24,13 @@
     include('functions.php');
 
     try{
-      $bdd = new PDO("mysql:host=127.0.0.1;dbname=data;charset=utf8","root","");
+      $bdd = new PDO($dsn,$username,$password);
     }
     catch(Exception $e){
       die("Erreur : " . $e->getMessage());
     }
 
-    $requete = "SELECT * FROM livre,author,keywords WHERE livre.CodeAuthor = author.CodeAuthor AND livre.CodeKeyWords = keywords.CodeKeyWords AND CodeLivre = '$CodeLivre'";
+    $requete = "SELECT * FROM book,author,keyword WHERE book.IdAuthor = author.IdAuthor AND book.IdKeyWord = keyword.IdKeyWord AND IdBook = '$CodeLivre'";
     $retour = $bdd->query($requete);
     while($donnees = $retour->fetch()){
       bookdisplay_function_detail($donnees);
@@ -59,14 +61,14 @@
             $Comment = $_POST['Comment'];
 
             //Requete SQL afin d'ajouter les données
-            $requete = $bdd->prepare('INSERT INTO comment(Username, Date, Heure, Comment, CodeLivre) VALUES(:Username, :Date, :Heure, :Comment, :CodeLivre)');
+            $requete = $bdd->prepare('INSERT INTO comment(Username, Day, Hour, Comment, IdBook) VALUES(:Username, :Day, :Hour, :Comment, :IdBook)');
             //Ajout d'un commentaire au livre correspondant dans la base de données (Table : "comment") :
             $requete->execute(array(
               ':Username' => $Username,
-              ':Date' => $Date,
-              ':Heure' => $Heure,
+              ':Day' => $Date,
+              ':Hour' => $Heure,
               ':Comment' => $Comment,
-              ':CodeLivre' => $CodeLivre
+              ':IdBook' => $CodeLivre
             ));
           }
           //Cette ligne de code permet de vider le champ de recherche (donc on y voit de nouveau le placeholder de chaque champ)
@@ -124,7 +126,7 @@
     </form>
 
     <?php
-      $requete = "SELECT Username, Date, Heure, Comment FROM livre,comment WHERE livre.CodeLivre = comment.CodeLivre AND livre.CodeLivre = '$CodeLivre' ORDER BY Date DESC, Heure DESC";
+      $requete = "SELECT Username, Day, Hour, Comment FROM book,comment WHERE book.IdBook = comment.IdBook AND book.IdBook = '$CodeLivre' ORDER BY Day DESC, Hour DESC";
       $retour = $bdd->query($requete);
       while($donnees = $retour->fetch()){
         bookdisplay_function_comment($donnees);

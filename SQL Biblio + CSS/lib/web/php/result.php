@@ -1,3 +1,6 @@
+<?php
+  require '../../../config/configuration.php';
+ ?>
 <html>
     <head>
         <title> result.php </title>
@@ -15,46 +18,61 @@
 
 	<section>
 		<h1>Resultat</h1>
+    <br/>
 		<?php
-    $detail = 100;
     if(isset($_GET['detail'])){
       $detail = $_GET['detail'];
     }
-
+    $uniqueresultat = 0;
 		include('functions.php');
 		//PDO = PHP Data Object, me permet de me connecter en localhost (127.0.0.1) sur la base de données data (qui se trouve sur phpmyadmin)
-		$bdd = new PDO("mysql:host=127.0.0.1;dbname=data;charset=utf8","root","");
-    if(isset($_POST['1']) or $detail == 1){
+		$bdd = new PDO($dsn,$username,$password);
+    if(isset($_POST['1'])){
       if (isset($_POST['recherche'])){
 				$usersearch = $_POST['recherche'];
-        $columns = array('CodeLivre','Title','Author','Editor','PublicationYear','Language','Resum','CodeKey');
-				for ($i=0;$i<=0;$i++){
-					$requete = "SELECT * FROM livre WHERE $columns[$i] LIKE '%$usersearch%'";
+        $columns = array('Title','FirstName','Editor','PublicationYear','Langage','Resum','ListeKW');
+				for ($i=0;$i<count($columns);$i++){
+					$requete = "SELECT * FROM book, author, keyword WHERE book.IdAuthor = author.IdAuthor AND keyword.IdKeyWord = book.IdKeyWord AND $columns[$i] LIKE '%$usersearch%'";
 				  $retour = $bdd->query($requete);
-				  while($donnees = $retour->fetch()){
-				      bookdisplay_function_result($donnees);
-              $answer = $donnees['CodeLivre'];
+          //var_dump($requete);
+          if($uniqueresultat != 1){
+  				  while($donnees = $retour->fetch()){
+              //var_dump($donnees);
+              $uniqueresultat = 1;
+  				    bookdisplay_function_result($donnees);
+              $answer = $donnees['IdBook'];
               echo'<a href="detail.php?booksearch='.$answer.'">+ de detail</a><br/><br/>';
-					}
+            }
+				  }
 			  }
 			}
     }
 
 		if(isset($_POST['2'])){
-			foreach($_POST as $key => $value) {
-				if(!(empty($_POST[$key])))
-				{
-					$requete = "SELECT * FROM livre WHERE $key LIKE '%$value%'";
-					$retour = $bdd->query($requete);
-					while($donnees = $retour->fetch()){
-						bookdisplay_function_result($donnees);
-            $answer = $donnees['CodeLivre'];
-            echo'<a href="detail.php?bookfilter='.$answer.'">+ de detail</a><br/><br/>';
-					}
-					echo "<br/>";
-        }
+			foreach($_POST as $key => $value){
+        $arraycolumns[] = $key;
+        $arrayvalue[] = $value;
+      }
+			$requete = $bdd->prepare("SELECT * FROM book,author,keyword WHERE author.IdAuthor = book.IdAuthor AND keyword.IdKeyWord = book.IdKeyWord AND $arraycolumns[1] LIKE '%$arrayvalue[1]%'
+      AND $arraycolumns[2] LIKE '%$arrayvalue[2]%' AND $arraycolumns[3] LIKE '%$arrayvalue[3]%' AND $arraycolumns[4] LIKE '%$arrayvalue[4]%' AND $arraycolumns[5] LIKE '%$arrayvalue[5]%'");
+      //var_dump($requete);
+		  $requete->execute();
+      $donnees = $requete->fetch();
+      if(mysql_num_rows($donnees)){ 
+        header('Location: erreur.php');
+        exit;
+      }
+      else{
+      //var_dump($retour);
+  		while($donnees = $requete->fetch()){
+        //var_dump($donnees);
+  		  bookdisplay_function_result($donnees);
+        $answer = $donnees['IdBook'];
+        echo'<a href="detail.php?bookfilter='.$answer.'">+ de detail</a><br/><br/>';
 			}
-		}
+    }
+		  echo "<br/>";
+		 }
 	?>
 	</section>
 	<footer>

@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+  require '../../../config/configuration.php';
+ ?>
 <html>
     <head>
         <title> index.html </title>
@@ -67,7 +70,7 @@
       if($pw == $pwconfirmed && $mail == $mailconfirmed){
         //Connexion à la BDD via un try / catch, + gestion d'erreur PDO et PHP
         try{
-          $bdd = new PDO("mysql:host=127.0.0.1;dbname=data;charset=utf8","root","");
+          $bdd = new PDO($dsn,$username,$password);
           $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         catch(Exception $e){
@@ -75,7 +78,7 @@
         }
 
         //Via cette requete, on vérifie si le nom d'utilisateur est déja présent dans la BDD
-        $requete_user = "SELECT user FROM utilisateur WHERE user = '$user_registered'";
+        $requete_user = "SELECT User FROM user WHERE User = '$user_registered'";
         $retour = $bdd->query($requete_user);
         while($donnees = $retour->fetch()){
           $validregistration = false;
@@ -83,7 +86,7 @@
         }
 
         //Via cette autre requete, on vérifie si l'adresse mail est déja présente dans la BDD
-        $requete_mail = "SELECT mail FROM utilisateur WHERE mail = '$mail'";
+        $requete_mail = "SELECT Mail FROM user WHERE Mail = '$mail'";
         $retour = $bdd->query($requete_mail);
         while($donnees = $retour->fetch()){
           $validregistration = false;
@@ -98,14 +101,14 @@
           //Date de création du compte
           $account_creation_date = date_default_timezone_set('Europe/Paris'); $account_creation_date = date('Y-m-d H:i:s');
           //Requete SQL permettant d'ajouter le nouvel utilisateur dans la BDD
-        	$requete = $bdd->prepare('INSERT INTO utilisateur(user, password, mail, registrationdate, typegroupe) VALUES(:user, :password, :mail, :registrationdate, :typegroupe)');
+        	$requete = $bdd->prepare('INSERT INTO user(User, Passwd, Mail, RegistrationDate, TypeGroup) VALUES(:User, :Passwd, :Mail, :RegistrationDate, :TypeGroup)');
         	//Exécute de la requete dans la base de données phpmyadmin : ajout de l'utilisateur validé !
         	$requete->execute(array(
-        		'user' => $user_registered,
-        		'password' => $pwconfirmed,
-        		'mail' => $mailconfirmed,
-        		'registrationdate' => $account_creation_date,
-        		'typegroupe' => 1
+        		'User' => $user_registered,
+        		'Passwd' => $pwconfirmed,
+        		'Mail' => $mailconfirmed,
+        		'RegistrationDate' => $account_creation_date,
+        		'TypeGroup' => 2
         	));
           //Le nouvel utilisateur est ajouté, retour à la page index.php
           header('Location: ../../../index.php');

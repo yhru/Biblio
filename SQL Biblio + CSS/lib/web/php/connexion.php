@@ -1,3 +1,6 @@
+<?php
+  require '../../../config/configuration.php';
+ ?>
 <html>
   <head>
     <title>Se connecter</title>
@@ -31,7 +34,7 @@
 
   //Connexion à la base de données
   try{
-    $bdd = new PDO("mysql:host=127.0.0.1;dbname=data;charset=utf8","root","");
+    $bdd = new PDO($dsn,$username,$password);
     $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   }
   catch(Exception $e){
@@ -52,12 +55,12 @@
     else{
       /* On stocke le nom d'utilisateur dans la variable $user, de même pour le mot de passe sauf qu'on le script en plus
       afin de faire correspondre le mot de passe crypté dans la BDD et le mot de passe crypté que l'utilisateur à insérer */
-      $user = htmlentities($_POST['user']);
-      $mdp = md5(htmlentities($_POST['mdp']));
+      $userinput = htmlentities($_POST['user']);
+      $mdpinput = md5(htmlentities($_POST['mdp']));
       //Requete pour comparer User + Password que l'utilisateur a inséré et le User + Password de la base de données
-      $requete = $bdd->prepare("SELECT * FROM utilisateur WHERE user = :user and password = :mdp");
-      $requete->bindValue(':user', $user, PDO::PARAM_STR);
-      $requete->bindValue(':mdp', $mdp, PDO::PARAM_STR);
+      $requete = $bdd->prepare("SELECT * FROM user WHERE User = :User and Passwd = :Passwd");
+      $requete->bindValue(':User', $userinput, PDO::PARAM_STR);
+      $requete->bindValue(':Passwd', $mdpinput, PDO::PARAM_STR);
       $requete->execute();
       $donnees = $requete->fetch();
       //var_dump($donnees);
@@ -70,11 +73,14 @@
       else{
         //Ouverture de session + Affichage pour montrer à l'utilisateur qu'il est connecté
         session_start();
-        $_SESSION['user'] = $donnees['user'];
-        $_SESSION['mdp'] = $donnees['password'];
-        if (isset($_SESSION['user']) AND isset($_SESSION['mdp'])){
-            echo 'Vous êtes à présent connecté ' . '<strong>' . $_SESSION['user'] . '</strong>';
+        $_SESSION['User'] = $donnees['User'];
+        $_SESSION['Passwd'] = $donnees['Passwd'];
+        $_SESSION['TypeGroup'] = $donnees['TypeGroup'];
+        if (isset($_SESSION['User']) AND isset($_SESSION['Passwd'])){
+            echo 'Vous êtes à présent connecté ' . '<strong>' . $_SESSION['User'] . '</strong>';
         }
+        header('Location: ../../../index.php');
+        exit;
       }
     }
   }
