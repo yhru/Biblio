@@ -57,22 +57,20 @@
       AND $arraycolumns[2] LIKE '%$arrayvalue[2]%' AND $arraycolumns[3] LIKE '%$arrayvalue[3]%' AND $arraycolumns[4] LIKE '%$arrayvalue[4]%' AND $arraycolumns[5] LIKE '%$arrayvalue[5]%'");
       //var_dump($requete);
 		  $requete->execute();
-      $donnees = $requete->fetch();
-      if(mysql_num_rows($donnees)){ 
+      $retour = $requete->fetchAll();
+      if (count($retour) == 0) {
         header('Location: erreur.php');
         exit;
       }
       else{
-      //var_dump($retour);
-  		while($donnees = $requete->fetch()){
-        //var_dump($donnees);
-  		  bookdisplay_function_result($donnees);
-        $answer = $donnees['IdBook'];
-        echo'<a href="detail.php?bookfilter='.$answer.'">+ de detail</a><br/><br/>';
-			}
-    }
+        foreach ($retour as $donnees){
+  		      bookdisplay_function_result($donnees);
+            $answer = $donnees['IdBook'];
+            echo'<a href="detail.php?bookfilter='.$answer.'">+ de detail</a><br/><br/>';
+			  }
+      }
 		  echo "<br/>";
-		 }
+	 }
 	?>
 	</section>
 	<footer>
