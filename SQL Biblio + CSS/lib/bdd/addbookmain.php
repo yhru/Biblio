@@ -1,5 +1,9 @@
-<?php
-	//Récupération des données dans les variables suivantes  
+	<?php
+	session_start();
+	if ($_SESSION['TypeGroup'] == null || $_SESSION['TypeGroup'] == 2){
+			header('Location: ../../index.php');
+	}
+	//Récupération des données dans les variables suivantes
 	$title = $_POST['Title'];
 	$author = $_POST['Author'];
 	$editor = $_POST['Editor'];
