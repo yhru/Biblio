@@ -38,9 +38,10 @@
                         <label for="Title">Le titre du livre : </label><input class="champ" type="text" name="Title" placeholder="Ex : Harry Potter ..."/><br />
                         <label for ="Author">Auteur du livre : </label><input class="champ" type="text" name="Author" placeholder="Ex : Claude Ponti ..."/><br />
                         <label for="Editor">Editeur du livre : </label><input class="champ" type="text" name="Editor" placeholder="Ex : Hachette jeunesse ..."/><br /><br />
+                        <label for="KeyWord">Mots-clés : </label><input class="champ" type="text" name="ListeKW" placeholder="Ex : Enfance .."/><br /><br/>
                         <label>Langue : </label>
-                            <select name="Language" id="choix">
-                                <option value="default"></option>
+                            <select name="Langage" id="choix">
+                                <!--<option></option>-->
                                 <option value="Français">Français</option>
                                 <option value="Anglais">Anglais</option>
                             </select><br><br>
