@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <label style="font-size:14px; font-family:calibri;">
         <link rel="stylesheet" type="text/css" href="lib/styles/css/style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
 
     <body>
@@ -17,6 +18,13 @@
               <a href="index.php">
                 <img class="logo" src="lib\styles\css\logo.png">
               </a>
+              <div class="login_container">
+                <form class="login-input" action="/lib/web/php/connexion.php">
+                  <input type="text" placeholder="Username" name="username">
+                  <input type="text" placeholder="Password" name="passwd">
+                  <button type="submit" class="btn btn-outline-light">Login</button>
+                </form>
+              </div>
             </div>
         </header>
 
@@ -25,20 +33,35 @@
             <label>Vous êtes ici :</label><strong>Accueil</strong><br /><br />
             <form class="form-search" method="POST" action="lib/web/php/result.php">
                 <div class=livreali>
-                    <label>Recherche : </label><input class="champ" type="text" name="recherche" placeholder="Saisissez votre recherche..."/>
-                    <input class="clean" type="reset" value="&#10006"/>
-                    <input class="search" type="submit" name="1" value="&#10004;"><br /><br /><br /><br />
+                    <label>Recherche : </label><input class="champ" type="text" name="recherche" placeholder=""/>
+                    <input class="search" type="submit" name="1" value="&#128269;"><br /><br /><br /><br />
                 </div>
             </form>
                 <div class="cssformulaire">
                     <form name="formulaire2" class="form-search" method="POST" action="lib/web/php/result.php">
                         <strong>Recherche avancée : </strong><br />
                         <span class="form-advanced"><p>Formulaire à plusieurs champs (Veuillez remplir un ou plusieurs champs) :
-                        <input class="clean" type="reset" value="&#10006;"/><input  class="search" type="submit" name="2" value="&#10004;"></p>
-                        <label for="Title">Le titre du livre : </label><input class="champ" type="text" name="Title" placeholder="Ex : Harry Potter ..."/><br />
-                        <label for ="Author">Auteur du livre : </label><input class="champ" type="text" name="Author" placeholder="Ex : Claude Ponti ..."/><br />
-                        <label for="Editor">Editeur du livre : </label><input class="champ" type="text" name="Editor" placeholder="Ex : Hachette jeunesse ..."/><br /><br />
-                        <label for="KeyWord">Mots-clés : </label><input class="champ" type="text" name="ListeKW" placeholder="Ex : Enfance .."/><br /><br/>
+                        <input class="clean" type="reset" value="&#10006;"/><input  class="search" type="submit" name="2" value="&#128269;"></p>
+                        <div class="aligntext">
+                          <table align="center">
+                          <tr>
+                            <td><label for="Title">Titre du livre : </label></td>
+                            <td><input class="champ" type="text" name="Title" placeholder="Ex : Harry Potter ..."/></td>
+                          </tr>
+                          <tr>
+                            <td><label for ="Author">Auteur du livre : </label></td>
+                            <td><input class="champ" type="text" name="Author" placeholder="Ex : Claude Ponti ..."/></td>
+                          </tr>
+                          <tr>
+                            <td><label for="Editor">Editeur du livre : </label></td>
+                            <td><input class="champ" type="text" name="Editor" placeholder="Ex : Hachette jeunesse ..."/></td>
+                          </tr>
+                          <tr>
+                            <td><label for="KeyWord">Mots-clés : </label></td>
+                            <td><input class="champ" type="text" name="ListeKW" placeholder="Ex : Enfance .."/></td>
+                          </tr>
+                        </table>
+                        </div>
                         <label>Langue : </label>
                             <select name="Langage" id="choix">
                                 <!--<option></option>-->
