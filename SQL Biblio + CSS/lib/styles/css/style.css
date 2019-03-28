@@ -9,23 +9,25 @@ body
 {
   background-image: url("crepit.png");
 }
-section
-{
+section {
 	background-image: url("crepit.png");
 	font-family: "Open Sans", sans-serif;
-	font-size: 18px;
 	color: #444;
 	padding: 7%;
 	text-align: center;
   padding-top: 10%;
 }
-h1
-{
+h1 {
 	font-family: "Merriweather", serif;
 	font-size: 32px;
 }
-.topnav
-{
+
+input{
+  border-radius: 4px;
+  align: center;
+}
+
+.topnav {
 	overflow: hidden;
 	background-color: #222;
 	position: fixed;
@@ -34,13 +36,30 @@ h1
   padding: 1%;
 	text-decoration: none;
 	margin : 0px;
+  align-items: center;
 }
-.topnav a:hover
-{
+
+.login_container {
+  float: right;
+  align-items: center;
+}
+
+.topnav a:hover {
   text-decoration: none;
 }
-a
+
+.aligntext
 {
+  display: flex;
+  justify-content: center;
+}
+
+tbody{
+  text-align: right;
+  align-content: center;
+}
+
+a {
   text-decoration: none;
 }
 .topnav > a h1
@@ -67,17 +86,23 @@ footer > p
 
 .cssformulaire
 {
-  display: block;
-  float: left;
-  width: 100%;
+  display: flex;
+  justify-content: center;
   background-image: url("crepit.png");
 }
+
+.titre {
+  display: flex;
+  justify-content: center;
+}
+
 .logo
 {
 	display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 13%;
+  width: 8%;
+  float: left;
 }
 
 .slideshow-container
