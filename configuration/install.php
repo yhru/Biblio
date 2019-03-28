@@ -71,18 +71,6 @@ INSERT INTO 'book' ('IdBook', 'Title', 'IdAuthor', 'Editor', 'PublicationYear', 
 (9, 'Elmer', 6, 'Kaléidoscope', 1989, 'Français', 'Elmer est différent des autres éléphants : il est bariolé et cette différence lui déplaît. Mais il découvrira que sa singularité ne l empêche pas de rester le même bon Elmer pour ses amis.', 8),
 (10, 'Candide ou l optimisme', 9, 'Magnard', 2013, 'Français', '« Candide ou l’optimisme » fait partie des textes majeurs de la littérature française. Ecrit par Voltaire en 1759, ce titre connaît un franc succès dès le vivant de l’auteur grâce à ses principes philosophiques qui affichent une grand optimisme quand à la capacité de l’homme à améliorer sa condition et ne pas considérer comme vivant déjà dans le meilleur des mondes possibles.', 10);
 
-INSERT INTO 'comment' ('IdComment', 'Username', 'Day', 'Hour', 'Comment', 'IdBook') VALUES
-(1, 'Romuald HENRY', '2019-03-21', '08:20:00', 'Ce livre est génial, je vous le conseille !', 1),
-(2, 'Armand Gentot', '2019-03-21', '09:20:00', 'Wouah c\'est énorme comme bouquin !', 1),
-(3, 'Romuald HENRY', '2019-03-21', '09:10:24', 'Je n\'aime pas M.Chatouille personnellement ... ', 2),
-(4, 'Maxim Joseau', '2019-03-21', '11:00:00', 'MDR Linux !!!!!!!!!', 1),
-(5, 'Nicolas Chevalier', '2019-03-21', '22:00:00', 'Max est trop bien !', 1),
-(6, 'Romuald HENRY', '2019-03-21', '09:44:24', 'Je confirme Armand !', 1),
-(7, 'JellalEternal', '2019-03-21', '19:28:47', 'Salut à tous les amis, c\'est DavidLa ... \"MAIS FERME LA !!!!\"', 1),
-(8, 'JellalEternal', '2019-03-21', '20:28:38', 'Damn la team Shape, j\'espère que vous allez bien, c\'est Tibo ... \"FERME LA !!\"', 2),
-(9, 'Monsieur la saucisse', '2019-03-21', '20:52:37', 'TiboInShape pue la merde Jellal !', 2),
-(10, 'Louis Plancq', '2019-03-22', '08:18:37', 'ggwp le game ', 1),
-(11, 'Cloud', '2019-03-25', '17:27:01', 'Super livre !', 1);
 
 INSERT INTO 'user' ('IdUser', 'User', 'Passwd', 'Mail', 'RegistrationDate', 'TypeGroup') VALUES
 (1, 'JellalEternal', 'cc8c0a97c2dfcd73caff160b65aa39e2', 'henry.romu@gmail.com', '2019-03-25 16:51:16', '1'),
