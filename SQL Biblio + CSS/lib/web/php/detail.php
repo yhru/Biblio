@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <div class="container">
-    <h1> Description du livre </h1><br/>
+    <h1> Detail du livre </h1><br/>
     <?php
     if (isset($_GET['booksearch'])){
       $detail = 1;
@@ -132,7 +132,6 @@
         bookdisplay_function_comment($donnees);
       }
     ?>
-
-  <br/><br/><center><a href= <?php echo "result.php?detail='.$detail.'"?>>Retourner à la page précédente</a></center><br/><br/>
-
+  <br/><br/><center><a href = "../../../index.php"> Retourner à l'acceuil </a></center><br/><br/>
+</div>
 </html>

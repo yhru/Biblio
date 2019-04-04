@@ -108,10 +108,11 @@
         		'Passwd' => $pwconfirmed,
         		'Mail' => $mailconfirmed,
         		'RegistrationDate' => $account_creation_date,
-        		'TypeGroup' => 2
+            'TypeGroup' => 2
         	));
+
           //Le nouvel utilisateur est ajouté, retour à la page index.php
-          header('Location: ../../../index.php');
+          //header('Location: ../../../index.php');
           exit;
        }
       }

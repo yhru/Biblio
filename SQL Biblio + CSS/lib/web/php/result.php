@@ -8,7 +8,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <label style="font-size:14px; font-family:calibri;">
         <link rel="stylesheet" type="text/css" href="../../../lib/styles/css/style.css">
-    </head>
+  <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+   </head>
    <body>
    <header>
         <div class="topnav">
@@ -26,7 +27,12 @@
     $uniqueresultat = 0;
 		include('functions.php');
 		//PDO = PHP Data Object, me permet de me connecter en localhost (127.0.0.1) sur la base de données data (qui se trouve sur phpmyadmin)
-		$bdd = new PDO($dsn,$username,$password);
+    try{
+      $bdd = new PDO($dsn,$username,$password);
+    }
+    catch(Exception $e){
+      die("Erreur : " . $e->getMessage());
+    }
     if(isset($_POST['1'])){
       if (isset($_POST['recherche'])){
 				$usersearch = $_POST['recherche'];
@@ -41,7 +47,7 @@
               $uniqueresultat = 1;
   				    bookdisplay_function_result($donnees);
               $answer = $donnees['IdBook'];
-              echo'<a href="detail.php?booksearch='.$answer.'">+ de detail</a><br/><br/>';
+              echo'<a class="btn btn-info btn-block modal-focus" href="detail.php?booksearch='.$answer.'">+ de detail</a><br/><br/>';
             }
 				  }
 			  }
