@@ -1,10 +1,11 @@
 <?php
-        include('lib/web/php/functions.php');
+  include('lib/web/php/functions.php');
+  session_start();
 ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <title> index.html </title>
+        <title> Accueil </title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <label style="font-size:14px; font-family:calibri;">
@@ -40,7 +41,7 @@
                 <div class="cssformulaire">
                     <form name="formulaire2" class="form-search" method="POST" action="lib/web/php/result.php">
                         <strong>Recherche avancée : </strong><br />
-                        <span class="form-advanced"><p>Formulaire à plusieurs champs (Veuillez remplir un ou plusieurs champs) :
+                        <label class="form-advanced">Formulaire à plusieurs champs (Veuillez remplir un ou plusieurs champs) : </label>
                         <input class="clean" type="reset" value="&#10006;"/><input  class="search" type="submit" name="2" value="&#128269;"></p>
                         <div class="aligntext">
                           <table align="center">
@@ -64,13 +65,19 @@
                         </div>
                         <label>Langue : </label>
                             <select name="Langage" id="choix">
-                                <!--<option></option>-->
                                 <option value="Français">Français</option>
                                 <option value="Anglais">Anglais</option>
                             </select><br><br>
                     </form>
                 </div>
                 <br/><br/>
+            <?php
+              if(isset($_SESSION['User'])){
+                if($_SESSION['TypeGroup'] == 1){
+                  echo'<a href = "lib/bdd/adminmenu.php"> Base de données </a><br/>';
+                }
+              }
+             ?>
             <a href = "lib/bdd/addbookmenu.php"> Lien pour ajouter un livre à la Base de données </a><br/>
             <a href = "lib/web/php/inscription.php"> S'inscrire </a><br/>
             <a href = "lib/web/php/connexion.php"> Se connecter </a><br/>
