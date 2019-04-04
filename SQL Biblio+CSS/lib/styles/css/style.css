@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+@import url('https://fonts.googleapis.com/css?family=Merriweather:400,700');
+
+*
+{
+  margin: 0;
+}
+body
+{
+  background-image: url("crepit.png");
+}
+section {
+	background-image: url("crepit.png");
+	font-family: "Open Sans", sans-serif;
+	color: #444;
+	padding: 7%;
+	text-align: center;
+  padding-top: 10%;
+}
+h1 {
+	font-family: "Merriweather", serif;
+	font-size: 32px;
+}
+
+input{
+  border-radius: 4px;
+  align: center;
+}
+
+.topnav {
+	overflow: hidden;
+	background-color: #222;
+	position: fixed;
+	top: 0;
+	width: 100%;
+  padding: 1%;
+	text-decoration: none;
+	margin : 0px;
+  align-items: center;
+}
+
+.login_container {
+  float: right;
+  align-items: center;
+}
+
+.topnav a:hover {
+  text-decoration: none;
+}
+
+.aligntext
+{
+  display: flex;
+  justify-content: center;
+}
+
+tbody{
+  text-align: right;
+  align-content: center;
+}
+
+a {
+  text-decoration: none;
+}
+.topnav > a h1
+{
+	text-align: center;
+	color: whitesmoke;
+	text-decoration: none;
+}
+footer
+{
+	overflow: hidden;
+	background-color: #222;
+	bottom: 0;
+	width: 100%;
+	padding: 1.5%;
+	position: fixed;
+}
+footer > p
+{
+	text-align: center;
+  color: #222;
+  margin: 0%;
+}
+
+.cssformulaire
+{
+  display: flex;
+  justify-content: center;
+  background-image: url("crepit.png");
+}
+
+.titre {
+  display: flex;
+  justify-content: center;
+}
+
+.logo
+{
+	display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 8%;
+  float: left;
+}
+
+.slideshow-container
+{
+  max-width: 50%;
+  position: relative;
+  margin: auto;
+}
+
+.text
+{
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px, 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+}
+
+.numbertext
+{
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+.dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .text {font-size: 11px}
+}
