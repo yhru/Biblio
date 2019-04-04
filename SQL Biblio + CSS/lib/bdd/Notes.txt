@@ -1,1 +1,0 @@
-Fichier LIVRE.sql à importer sur phpmyadmin dans une base de données nommé "data" : id = root mdp = "" 
