@@ -7,10 +7,10 @@
 }
 body
 {
-  background-image: url("crepit.png");
+  background-image: url("../../assets/images/crepit.png");
 }
 section {
-	background-image: url("crepit.png");
+	background-image: url("../../assets/images/crepit.png");
 	font-family: "Open Sans", sans-serif;
 	color: #444;
 	padding: 7%;
@@ -88,7 +88,7 @@ footer > p
 {
   display: flex;
   justify-content: center;
-  background-image: url("crepit.png");
+  background-image: url("../../assets/images/crepit.png");
 }
 
 .titre {
