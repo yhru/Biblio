@@ -17,14 +17,13 @@
     <body>
         <header>
             <div class="topnav">
-                <img class="logo" src="../styles/css/logo.png">
+                <img class="logo" src="../assets/images/logo.png">
             </div>
         </header>
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
         <center>
           <a href = "addbookmenu.php"> Ajouter </a><br/>
           <a href = "editbookmenu.php"> Modifier </a><br/>
-          <a href = "removebookmenu.php"> Supprimer </a><br/>
         </center>
     </body>
     <footer>

@@ -19,7 +19,7 @@
     <body>
         <header>
             <div class="topnav">
-                <img class="logo" src="../styles/css/logo.png">
+                <img class="logo" src="../assets/images/logo.png">
             </div>
         </header>
         <section>
@@ -64,7 +64,7 @@
           		  $requete->execute();
                 $retour = $requete->fetchAll();
                 if (count($retour) == 0) {
-                  header('Location: erreur.php');
+                  header('Location: ../web/php/erreur.php');
                   exit;
                 }
                 else{

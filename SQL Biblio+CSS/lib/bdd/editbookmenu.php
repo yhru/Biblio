@@ -1,6 +1,9 @@
 <?php
   include('../web/php/functions.php');
   session_start();
+  if ($_SESSION['TypeGroup'] == null || $_SESSION['TypeGroup'] == 2){
+		header('Location: ../../index.php');
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,7 +18,7 @@
     <body>
         <header>
             <div class="topnav">
-                <img class="logo" src="../styles/css/logo.png">
+                <img class="logo" src="../assets/images/logo.png">
             </div>
         </header>
 

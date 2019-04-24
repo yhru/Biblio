@@ -1,4 +1,4 @@
-	<?php
+<?php
 	require '../../config/configuration.php';
 	session_start();
 	if ($_SESSION['TypeGroup'] == null || $_SESSION['TypeGroup'] == 2){
