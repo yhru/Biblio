@@ -17,7 +17,7 @@
         <header>
             <div class="topnav">
               <a href="index.php">
-                <img class="logo" src="lib\styles\css\logo.png">
+                <img class="logo" src="lib/assets/images/logo.png">
               </a>
               <div class="login_container">
                 <form class="login-input" method="post">
@@ -30,14 +30,14 @@
         </header>
 
         <section>
-            <?php
+           <?php
               if(isset($_POST['connexion'])){
                 include('lib/web/php/databaseconnexion.php');
                 include('lib/web/php/connexion.php');
               }
-             ?>
+            ?>
             <span class= "titre"> <h1>Quel livre recherchez-vous ? </h1></span><br />
-            <label>Vous êtes ici :</label><strong>Accueil</strong><br /><br />
+            <label>Vous êtes ici : </label><strong> Accueil</strong><br /><br />
             <form class="form-search" method="POST" action="lib/web/php/result.php">
                 <div class=livreali>
                     <input class="champ" type="text" name="recherche" placeholder="Recherche rapide.."/>
@@ -79,27 +79,29 @@
             <?php
               if(isset($_SESSION['User'])){
                 if($_SESSION['TypeGroup'] == 1){
-                  echo'<a href = "lib/bdd/adminmenu.php"> Base de données </a><br/>';
+                  echo'<a href = "lib/bdd/adminmenu.php"> Base de données </a><br/>
+                  <a href = "lib/web/php/deconnexion.php"> Se deconnecter </a><br/>';
                 }
               }
              ?>
               <a href = "lib/web/php/inscription.php"> S'inscrire </a><br/>
-                ______________________________________
-                <div class="slideshow-container">
-                  <div class="mySlides fade">
-                    <img src="lib\styles\css\bibli1.jpg" style="width: 100%">
-                  </div>
+              <br/>
 
-                  <div class="mySlides fade">
-                    <img src="lib\styles\css\bibli2.jpg" style="width: 100%">
-                  </div>
-
+              <div class="slideshow-container">
+                <div class="mySlides fade">
+                  <img src="lib/assets/images/bibli1.jpg" style="width: 100%">
                 </div>
-                <br />
 
-                <div style="text-align:center">
-                    <span class="dot"></span>
-                    <span class="dot"></span>
+                <div class="mySlides fade">
+                  <img src="lib/assets/images/bibli2.jpg" style="width: 100%">
+                </div>
+
+              </div>
+              <br/>
+
+              <div style="text-align:center">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
               </div>
 
               <script>
@@ -120,7 +122,7 @@
                   }
                   slides[slideIndex-1].style.display = "block";
                   dots[slideIndex-1].className += " active";
-                  setTimeout(showSlides, 5000); // Change image every 2 seconds
+                  setTimeout(showSlides, 1500); // Change image every 2 seconds
                 }
             </script>
     </section>
