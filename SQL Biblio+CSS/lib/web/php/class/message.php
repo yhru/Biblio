@@ -1,16 +1,15 @@
 <?php
+//Sur cette page php, on a réalisé le message en orienté objet, à l'image du C++ afin de bien prendre comprendre comment fonctionne la POO
   class Commentary {
 
-    const LIMIT_USERNAME = 2;
-    const LIMIT_MESSAGE = 5;
+    const LIMIT_COMMENTARY = 5;
     private $username;
     private $message;
 
     public function __construct (string $username, string $message)
     {
-      $this->username = $username;
+      $this->username = $_SESSION['User'];
       $this->message = $message;
-
     }
 
     public function CheckValidBoolean (): bool
@@ -22,11 +21,7 @@
     public function GetErrorsCommentary (): array
     {
       $error = [];
-      if (strlen($this->username) <= self::LIMIT_USERNAME){
-        $error['username'] = 'Votre pseudo est trop court';
-      }
-
-      if (strlen($this->message) < self::LIMIT_MESSAGE){
+      if (strlen($this->message) < self::LIMIT_COMMENTARY){
         $error['message'] = 'Votre message est trop court';
       }
       return $error;
