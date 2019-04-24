@@ -1,9 +1,10 @@
 <?php
 /*
 Lien pour mettre à jour la BDD
-http://localhost/Biblio/SQL%20Biblio/config/install.php
+http://localhost/Biblio/SQL%20Biblio+CSS/config/install.php
  */
 require 'configuration.php';
+
 $installDB = <<<SQL
 CREATE DATABASE $dbname;
 use $dbname;
@@ -86,6 +87,10 @@ INSERT INTO `comment` (`IdComment`, `Username`, `Day`, `Hour`, `Comment`, `IdBoo
 INSERT INTO `user` (`IdUser`, `User`, `Passwd`, `Mail`, `RegistrationDate`, `TypeGroup`) VALUES
 (1, 'JellalEternal', 'cc8c0a97c2dfcd73caff160b65aa39e2', 'henry.romu@gmail.com', '2019-03-25 16:51:16', '1'),
 (3, 'Armand Gentot', '0a5b3913cbc9a9092311630e869b4442', 'gentot.armand@gmail.com', '2019-03-26 01:57:39', '2');
+
+INSERT INTO `status` (`IdGroup`, `TypeGroup`) VALUES
+(1, 'Admin'),
+(2, 'Membre');
 
 INSERT INTO `keyword` (`IdKeyWord`, `ListeKW`) VALUES
 (1, 'ENFANCE, MONSTRES'),
