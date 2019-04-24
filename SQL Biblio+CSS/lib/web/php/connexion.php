@@ -33,7 +33,8 @@
       $_SESSION['Passwd'] = $donnees['Passwd'];
       $_SESSION['TypeGroup'] = $donnees['TypeGroup'];
       if (isset($_SESSION['User']) AND isset($_SESSION['Passwd'])){
-          echo '<div class="alert alert-success"> Vous êtes à présent connecté <strong>'.$_SESSION['User'].'</strong></div><br/>';
+          //alert alert-success
+          echo '<div class=""> Vous êtes à présent connecté <strong>'.$_SESSION['User'].'</strong></div><br/>';
       }
     }
   }

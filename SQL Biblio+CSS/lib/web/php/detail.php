@@ -1,4 +1,6 @@
 <?php
+  session_start();
+  include('functions.php');
   require '../../../config/configuration.php';
  ?>
 <html>
@@ -21,14 +23,7 @@
       $CodeLivre = $_GET['bookfilter'];
     }
 
-    include('functions.php');
-
-    try{
-      $bdd = new PDO($dsn,$username,$password);
-    }
-    catch(Exception $e){
-      die("Erreur : " . $e->getMessage());
-    }
+    include('databaseconnexion.php');
 
     $requete = "SELECT * FROM book,author,keyword WHERE book.IdAuthor = author.IdAuthor AND book.IdKeyWord = keyword.IdKeyWord AND IdBook = '$CodeLivre'";
     $retour = $bdd->query($requete);
@@ -46,16 +41,16 @@
       //On déclare une variable $success et on l'initialise comme étant false, elle sera = true si elle passe les conditions de saisies
       $success = false;
       //Si l'utilisateur a mis un pseudo et un message
-      if(isset($_POST['Username'], $_POST['Comment'])){
+      if(isset($_SESSION['User'], $_POST['Comment'])){
         //On crée un nouveau message comportant en paramètre le pseudo et le message, ce message est stocké dans $Comment
-        $Comment = new Commentary($_POST['Username'], $_POST['Comment']);
+        $Comment = new Commentary($_SESSION['User'], $_POST['Comment']);
         //Si $Comment respecte les conditions de saisies
         if($Comment->CheckValidBoolean()){
           $success = true;
 
           if(isset($_POST['Comment'])){
             //Récupération des données dans les variables suivantes
-            $Username = $_POST['Username'];
+            $Username = $_SESSION['User'];
             $Date = date('Y-m-d');
             $Heure = date_default_timezone_set('Europe/Paris'); $Heure = date('H:i:s');
             $Comment = $_POST['Comment'];
@@ -104,13 +99,16 @@
     <!-- Un formulaire composé du pseudo et du message -->
     <form action="" method="post">
       <div class="form-group">
-        <!--Si il y a il y a une erreur dans le username, il rajoutera 'is-invalid' à ma classe sinon il ne rajoute rien -->
-        <input name="Username" placeholder="Votre pseudo" type="text" class="form-control <?= isset($error['Username']) ? 'is-invalid' : '' ?>">
-        <!-- Si il y a une erreur au niveau du Pseudo (qui est trop court) -->
-        <?php if(isset($error['Username'])): ?>
-          <!-- Il affichera alors comme quoi que le pseudo est trop court -->
-          <div class="invalid-feedback"> <?= $error['Username'] ?></div>
-        <?php endif ?>
+        <strong>
+          <?php
+            if(isset($_SESSION['User'])){
+              echo $_SESSION['User'];
+            }
+            else {
+              echo "Vous devez vous connecter si vous voulez ajouter un commentaire";
+            }
+           ?>
+        </strong>
       </div>
       <div class="form-group">
         <!--Si il y a il y a une erreur dans le commentaire, il rajoutera 'is-invalid' à ma classe sinon il ne rajoute rien -->
@@ -122,7 +120,7 @@
         <?php endif ?>
       </div>
       <!-- Le bouton de submit du commentaire -->
-      <button class="btn btn-primary">Partager</button>
+      <button <?= !(isset($_SESSION['User'])) ?  'disabled' : '' ?> class="btn btn-primary">Partager</button>
     </form>
 
     <?php

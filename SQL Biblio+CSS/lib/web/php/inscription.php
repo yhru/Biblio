@@ -15,7 +15,7 @@
     <body>
       <header>
           <div class="topnav">
-              <img class="logo" src="..\..\..\lib\styles\css\logo.png">
+              <img class="logo" src="../../../lib/assets/images/logo.png">
           </div>
       </header>
       <br/><br/><br/><br/><br/><br/><br/><br/>

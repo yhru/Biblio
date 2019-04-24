@@ -1,4 +1,5 @@
 <?php
+  session_start();
   require '../../../config/configuration.php';
  ?>
 <html>
@@ -8,12 +9,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <label style="font-size:14px; font-family:calibri;">
         <link rel="stylesheet" type="text/css" href="../../../lib/styles/css/style.css">
+        <META HTTP-EQUIV="PRAGMAS" CONTENT="NO-CACHE">
   <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
    </head>
    <body>
    <header>
         <div class="topnav">
-			<img class="logo" src="..\..\..\lib\styles\css\logo.png">
+			<img class="logo" src="../../../lib/assets/images/logo.png">
 		</div>
     </header>
 
@@ -45,9 +47,11 @@
   				  while($donnees = $retour->fetch()){
               //var_dump($donnees);
               $uniqueresultat = 1;
+              echo '<div class="">';
   				    bookdisplay_function_result($donnees);
               $answer = $donnees['IdBook'];
-              echo'<a class="btn btn-info btn-block modal-focus" href="detail.php?booksearch='.$answer.'">+ de detail</a><br/><br/>';
+              echo'<a href="detail.php?booksearch='.$answer.'">+ de detail</a><br/><br/>';
+              echo '</div>';
             }
 				  }
 			  }
